@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brandy Melville — One Brand, Every Size</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&family=Bitter:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  /* Brandy Melville wordmark uses LingWai TC — Apple system font. */
+  @font-face {
+    font-family: 'LingWai TC';
+    src: local('LingWai TC Medium'), local('LingWai TC'), local('LingWaiTC-Medium'), local('LingWaiTC');
+    font-display: swap;
+  }
+  .wordmark {
+    font-family: 'LingWai TC', 'Playfair Display', serif;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+  }
+  :root{
+    --white:#ffffff;
+    --black:#0a0a0a;
+    --pink:#F949A9;
+    --grey:#797979;
+    --line:#ececec;
+    --line-soft:#f4f4f4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--white);color:var(--black)}
+  body{
+    font-family:'Space Mono',monospace;
+    font-size:13px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--pink);color:#fff}
+
+  /* ─── Layout helpers ─────────────────────────────── */
+  .container{max-width:1200px;margin:0 auto;padding:0 40px}
+  .eyebrow{
+    font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--grey);
+  }
+  .display{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    line-height:1.05;
+    letter-spacing:-.01em;
+  }
+  .italic{font-style:italic}
+  .pink{color:var(--pink)}
+
+  /* ─── Nav ─────────────────────────────────────────── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 40px;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px) saturate(160%);
+    -webkit-backdrop-filter:blur(14px) saturate(160%);
+    border-bottom:1px solid var(--line);
+  }
+  nav .logo{
+    font-family:'LingWai TC','Playfair Display',serif;
+    font-style:normal;font-weight:500;
+    font-size:22px;letter-spacing:.06em;
+    text-transform:lowercase;
+  }
+  nav ul{display:flex;gap:36px;list-style:none}
+  nav ul a{
+    text-decoration:none;color:var(--grey);
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    transition:color .15s;
+  }
+  nav ul a:hover{color:var(--black)}
+
+  /* ─── Hero ────────────────────────────────────────── */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;
+    padding:120px 40px 80px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{margin-bottom:32px}
+  .hero h1{font-size:clamp(56px,9vw,128px)}
+  .hero .sub{
+    margin-top:36px;
+    font-family:'Bitter',serif;
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--grey);
+  }
+  .hero .scroll{
+    margin-top:80px;
+    font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--grey);
+    animation:bounce 2.2s ease-in-out infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);opacity:.7}
+    50%{transform:translateY(6px);opacity:1}
+  }
+
+  /* ─── Section header ──────────────────────────────── */
+  section{padding:120px 40px;border-bottom:1px solid var(--line)}
+  section.no-border{border-bottom:none}
+  .section-head{
+    max-width:1200px;margin:0 auto 64px;
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;
+  }
+  .section-head h2{font-size:clamp(36px,5vw,64px)}
+  .section-head p{color:var(--grey);max-width:42ch}
+
+  /* ─── Tabs ────────────────────────────────────────── */
+  .tabs-wrap{max-width:1200px;margin:0 auto}
+  .tabs{
+    display:flex;gap:0;border-bottom:1px solid var(--line);
+    margin-bottom:64px;
+  }
+  .tab{
+    appearance:none;background:none;border:0;
+    padding:18px 32px 18px 0;margin-right:32px;
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--grey);
+    border-bottom:1.5px solid transparent;
+    cursor:pointer;
+    transition:color .15s,border-color .15s;
+  }
+  .tab:hover{color:var(--black)}
+  .tab.active{color:var(--black);border-bottom-color:var(--black)}
+  .tab-content{display:none}
+  .tab-content.active{display:block;animation:fade .35s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ─── Two-col block ───────────────────────────────── */
+  .two-col{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start}
+  .two-col .copy h3{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:36px;line-height:1.15;margin-bottom:24px;
+  }
+  .two-col .copy p{color:var(--grey);margin-bottom:18px;max-width:48ch}
+  .two-col .copy .note{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--pink);margin-top:8px;
+  }
+
+  /* ─── Canvas ──────────────────────────────────────── */
+  .canvas-wrap{position:relative}
+  #drawCanvas{
+    width:100%;aspect-ratio:3/4;
+    background:var(--white);
+    border:1px solid var(--line);
+    cursor:crosshair;touch-action:none;
+    display:block;
+  }
+  .toolbar{
+    margin-top:16px;
+    display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  }
+  .toolbar .group{
+    display:flex;align-items:center;gap:6px;
+    padding:6px 10px;border:1px solid var(--line);
+  }
+  .toolbar .label{
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--grey);margin-right:4px;
+  }
+  .size-btn{
+    width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;border:1px solid transparent;cursor:pointer;
+    transition:border-color .15s;
+  }
+  .size-btn:hover{border-color:var(--line)}
+  .size-btn.active{border-color:var(--black)}
+  .size-btn i{display:block;background:var(--black);border-radius:50%}
+  .btn{
+    appearance:none;background:none;
+    padding:10px 16px;border:1px solid var(--black);
+    font-family:'Space Mono',monospace;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .btn:hover{background:var(--black);color:#fff}
+  .btn.active{background:var(--black);color:#fff}
+  .btn.ghost{border-color:var(--line);color:var(--grey)}
+  .btn.ghost:hover{border-color:var(--black);background:var(--white);color:var(--black)}
+  .btn.pink{border-color:var(--pink);color:var(--pink)}
+  .btn.pink:hover{background:var(--pink);color:#fff}
+  .btn.solid{background:var(--black);color:#fff}
+  .btn.solid:hover{background:var(--pink);border-color:var(--pink)}
+
+  /* ─── Form ────────────────────────────────────────── */
+  .field{margin-bottom:20px}
+  .field label{
+    display:block;
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--grey);margin-bottom:8px;
+  }
+  .field input,.field textarea,.field select{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    font-family:'Space Mono',monospace;font-size:12px;
+    background:var(--white);color:var(--black);
+    outline:none;
+    transition:border-color .15s;
+    resize:vertical;
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{
+    border-color:var(--black);
+  }
+  .submit{
+    width:100%;padding:16px;
+    background:var(--black);color:#fff;border:0;
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  .submit:hover{background:var(--pink)}
+
+  /* ─── Gallery ─────────────────────────────────────── */
+  .gallery{margin-top:96px}
+  .gallery-head{
+    display:flex;justify-content:space-between;align-items:end;
+    margin-bottom:32px;
+  }
+  .gallery-head h3{
+    font-family:'Playfair Display',serif;font-style:italic;font-size:32px;
+  }
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);
+  }
+  .gallery-item{
+    background:#fff;padding:14px;
+    text-align:center;cursor:pointer;
+    transition:background .15s;
+  }
+  .gallery-item:hover{background:var(--line-soft)}
+  .gallery-item img{
+    width:100%;aspect-ratio:3/4;object-fit:contain;display:block;
+  }
+  .gallery-item .author{
+    margin-top:10px;
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey);
+  }
+  .gallery-empty{
+    grid-column:1/-1;background:#fff;padding:48px;
+    text-align:center;color:var(--grey);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  }
+
+  /* ─── Naming ──────────────────────────────────────── */
+  .garment{
+    border:1px solid var(--line);
+    padding:48px 40px;text-align:center;
+  }
+  /* ─── Name tab — intent header + steps + plate ─── */
+  .name-intent{max-width:800px;margin:0 0 56px}
+  .name-intent .eyebrow{margin-bottom:18px}
+  .name-headline{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(32px,4.4vw,56px);
+    line-height:1.1;letter-spacing:-.01em;
+    margin-bottom:20px;
+  }
+  .name-sub{color:var(--grey);max-width:54ch;line-height:1.7}
+
+  .steps{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:0;list-style:none;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin:0 0 72px;
+  }
+  .steps li{
+    padding:28px 28px 28px 0;
+    border-right:1px solid var(--line);
+    display:grid;grid-template-columns:auto 1fr;
+    column-gap:18px;row-gap:6px;align-items:start;
+  }
+  .steps li:last-child{border-right:0}
+  .step-n{
+    grid-row:1/3;
+    font-size:11px;letter-spacing:.22em;color:var(--pink);
+    padding-top:4px;
+  }
+  .step-t{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:22px;color:var(--black);
+  }
+  .step-d{font-size:11px;letter-spacing:.04em;color:var(--grey);line-height:1.6}
+
+  .name-plate{
+    border:1px solid var(--black);
+    padding:28px 32px;
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:20px;flex-wrap:wrap;
+  }
+  .plate-lbl{
+    font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--grey);
+    flex-shrink:0;
+  }
+  .plate-val{
+    font-family:'Playfair Display',serif;font-weight:700;
+    font-size:28px;letter-spacing:-.01em;color:var(--black);
+    text-align:right;flex:1;min-width:0;
+  }
+  .plate-hint{
+    margin:12px 0 0;
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);
+  }
+
+  /* (legacy hangtag styles \u2014 unused) Real price tag */
+  .tag{
+    --tag-w:300px;
+    --tag-h:540px;
+    --notch:36px;
+    position:relative;
+    width:var(--tag-w);height:var(--tag-h);
+    margin:0 auto 28px;
+    background:var(--white);
+    box-shadow:0 24px 48px -24px rgba(0,0,0,.18), 0 2px 0 rgba(0,0,0,.04);
+    clip-path:polygon(
+      0 var(--notch), 50% 0, 100% var(--notch),
+      100% 100%, 0 100%
+    );
+    padding:64px 30px 36px;
+    text-align:left;
+    font-family:'Space Mono',monospace;
+  }
+  .tag .hole{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;border-radius:50%;
+    background:#0a0a0a;
+  }
+  .tag .string{
+    position:absolute;top:-46px;left:50%;
+    width:180px;height:80px;
+    transform:translateX(-12%);
+    pointer-events:none;
+    overflow:visible;
+  }
+  .tag-rows{display:flex;flex-direction:column;gap:0;margin-left:36px}
+  .tag-row{
+    padding:18px 0 16px;
+    border-bottom:1px solid var(--pink);
+    text-align:center;
+  }
+  .tag-row:first-child{border-top:1px solid var(--pink)}
+  .tag-row .lbl{
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#0a0a0a;
+    margin-bottom:6px;
+  }
+  .tag-row .val{
+    font-family:'Playfair Display',serif;font-weight:700;font-style:normal;
+    font-size:22px;color:#0a0a0a;letter-spacing:-.01em;
+  }
+  .tag-row .val.sm{font-size:18px}
+  .tag-thanks{
+    position:absolute;
+    left:18px;top:50%;
+    transform:translateY(-50%) rotate(180deg);
+    writing-mode:vertical-rl;
+    font-size:10px;line-height:1.6;color:#0a0a0a;
+    letter-spacing:.02em;
+    text-align:center;
+    max-height:340px;
+  }
+  .tag-url{
+    position:absolute;
+    left:50%;bottom:24px;
+    transform:translateX(-50%);
+    margin-left:18px; /* center within the rows column, accounting for left thanks band */
+    font-size:10px;letter-spacing:.04em;color:#0a0a0a;
+    white-space:nowrap;
+  }
+  .garment p{color:var(--grey);font-size:12px;max-width:34ch;margin:24px auto 0;text-align:center}
+
+  .names-list{margin-top:48px}
+  .names-list .eyebrow{margin-bottom:16px}
+  .name-row{
+    display:grid;grid-template-columns:36px 1fr auto;
+    align-items:baseline;gap:20px;
+    padding:18px 0;border-bottom:1px solid var(--line);
+    cursor:default;
+    transition:padding-left .15s;
+  }
+  .name-row:hover{padding-left:8px}
+  .name-row .num{font-size:10px;color:var(--grey);letter-spacing:.12em}
+  .name-row .name{
+    font-family:'LingWai TC','Playfair Display',serif;
+    font-style:normal;font-weight:500;
+    font-size:24px;letter-spacing:.04em;text-transform:lowercase;
+    transition:color .15s;
+  }
+  .name-row:hover .name{color:var(--pink)}
+  .name-row .role{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
+
+  /* ─── The Wall ────────────────────────────────────── */
+  .wall{
+    position:relative;
+    background:var(--black);color:#fff;
+    min-height:520px;
+    padding:64px 56px;
+    overflow:hidden;
+  }
+  .wall-msg{
+    position:absolute;
+    font-family:'Bitter',serif;font-style:italic;font-weight:500;
+    color:var(--pink);
+    white-space:nowrap;cursor:default;
+    transition:color .25s,transform .25s,opacity .25s;
+    opacity:.55;
+  }
+  .wall-msg:hover{opacity:1;transform:scale(1.05)}
+  .wall-msg.featured{opacity:.9}
+  .wall-input-row{display:flex;margin-top:24px}
+  .wall-input{
+    flex:1;padding:16px 18px;
+    background:var(--white);color:var(--black);
+    border:1px solid var(--black);border-right:0;
+    font-family:'Space Mono',monospace;font-size:12px;outline:none;
+  }
+  .wall-input:focus{border-color:var(--pink)}
+  .wall-add{
+    padding:16px 28px;
+    background:var(--pink);color:#fff;border:1px solid var(--pink);
+    font-family:'Space Mono',monospace;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    cursor:pointer;
+    transition:background .15s,border-color .15s;
+  }
+  .wall-add:hover{background:var(--black);border-color:var(--black)}
+  .wall-hint{
+    margin-top:12px;font-size:10px;color:var(--grey);
+    letter-spacing:.18em;text-transform:uppercase;
+  }
+
+  /* ─── Footer ──────────────────────────────────────── */
+  footer{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:40px;border-top:1px solid var(--line);
+  }
+  footer .logo{font-family:'LingWai TC','Playfair Display',serif;font-style:normal;font-weight:500;font-size:20px;letter-spacing:.06em;text-transform:lowercase}
+  footer p{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+  footer .tag-line{color:var(--pink)}
+
+  /* ─── Success ─────────────────────────────────────── */
+  .success{
+    display:none;
+    border:1px solid var(--pink);color:var(--pink);
+    padding:16px;margin-top:16px;text-align:center;
+    font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  }
+
+  /* ─── Modal ───────────────────────────────────────── */
+  .modal{
+    display:none;position:fixed;inset:0;z-index:1000;
+    align-items:center;justify-content:center;
+    background:rgba(10,10,10,.7);backdrop-filter:blur(6px);
+  }
+  .modal.open{display:flex}
+  .modal-card{
+    background:#fff;padding:48px;max-width:480px;width:90%;
+    position:relative;text-align:center;
+    border:1px solid var(--line);
+  }
+  .modal-card h3{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-size:32px;margin-bottom:8px;
+  }
+  .modal-card p{font-size:11px;color:var(--grey);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px}
+  .modal-card canvas{
+    width:200px;height:266px;
+    border:1px solid var(--line);margin:0 auto 28px;display:block;
+  }
+  .modal-close{
+    position:absolute;top:14px;right:14px;
+    background:none;border:0;font-size:22px;color:var(--grey);cursor:pointer;
+    line-height:1;padding:4px;
+  }
+  .modal-close:hover{color:var(--black)}
+  .share-row{display:flex;gap:10px;justify-content:center}
+
+  /* ─── Responsive ──────────────────────────────────── */
+  @media (max-width:880px){
+    nav{padding:14px 20px}
+    nav ul{display:none}
+    section{padding:80px 20px}
+    .container{padding:0 20px}
+    .section-head{grid-template-columns:1fr;gap:24px}
+    .two-col{grid-template-columns:1fr;gap:48px}
+    .gallery-head{flex-direction:column;align-items:flex-start;gap:12px}
+    .steps{grid-template-columns:1fr}
+    .steps li{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+    .steps li:last-child{border-bottom:0}
+  }
+</style>
+</head>
+<body style="font-family: &quot;Space Mono&quot;">
+
+<!-- NAV -->
+<nav>
+  <div class="logo" style="font-size: 19px">BRANDY MELVILLE</div>
+  <ul></ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="eyebrow" style="font-family: &quot;LingWai TC&quot;; font-weight: 500"><span style="color: rgb(0, 0, 0)">Brandy Melville — Redefined</span></div>
+    <h1 class="display" style="font-family: &quot;LingWai TC&quot;; font-weight: 600">One Brand,<br /><span class="italic pink" style="font-family: &quot;LingWai TC&quot;; font-weight: 600">Every Size.</span></h1>
+    <div class="sub" style="font-family: &quot;Bitter&quot;"><span style="color: rgb(0, 0, 0)">Simple for every day. Made for everyone.</span></div>
+    <div class="scroll" style="font-family: &quot;LingWai TC&quot;; color: rgb(0, 0, 0)">↓ Explore</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<section>
+  <div class="section-head">
+    <div>
+      <div class="eyebrow" style="margin-bottom: 16px; font-family: &quot;Playfair Display&quot;">Interactive Experience</div>
+      <h2 class="display" style="font-family: &quot;LingWai TC&quot;; font-weight: 500">This brand<br /><span class="italic" style="font-weight: 500">belongs to you.</span></h2>
+    </div>
+    <p style="font-family: Bitter; font-size: 13px; width: 355px">Three ways to step inside the rebrand — draw yourself in, nominate someone who deserves a name on a tag, or leave a mark on the wall.</p>
+  </div>
+
+  <div class="tabs-wrap">
+    <div class="tabs">
+      <button class="tab active" data-tab="draw" style="font-family: &quot;Playfair Display&quot;">01 — Draw your character</button>
+      <button class="tab" data-tab="name" style="font-family: &quot;Playfair Display&quot;">02 — Name the garment</button>
+      <button class="tab" data-tab="wall" style="font-family: &quot;Playfair Display&quot;">03 — The wall</button>
+    </div>
+
+    <!-- DRAW -->
+    <div id="draw" class="tab-content active">
+      <div class="two-col">
+        <div class="canvas-wrap">
+          <canvas id="drawCanvas" width="400" height="533"></canvas>
+          <div class="toolbar">
+            <div class="group">
+              <span class="label" style="font-family: Bitter">Size</span>
+              <button class="size-btn active" data-size="1.5"><i style="width:4px;height:4px"></i></button>
+              <button class="size-btn" data-size="3"><i style="width:7px;height:7px"></i></button>
+              <button class="size-btn" data-size="5"><i style="width:11px;height:11px"></i></button>
+            </div>
+            <button class="btn active" id="drawBtn" style="font-family: Bitter">Draw</button>
+            <button class="btn" id="eraseBtn">Erase</button>
+            <button class="btn ghost" id="clearBtn" style="font-family: Bitter">Clear</button>
+            <button class="btn pink" id="shareBtn" style="font-family: Bitter">Share →</button>
+          </div>
+        </div>
+
+        <div class="copy">
+          <h3 style="font-family: &quot;LingWai TC&quot;">Draw yourself<br />into the brand.</h3>
+          <p style="font-family: Bitter">Brandy Melville used to have one body. One size. One idea of who belonged.</p>
+          <p style="font-family: Bitter">That changes now. Draw your figure — any shape, any size, any way you move through the world. Your illustration becomes part of the brand.</p>
+          <div class="note" style="font-family: Bitter">Every drawing shared adds to our growing collection of who we are.</div>
+
+          <div style="margin-top:32px">
+            <div class="field">
+              <label style="font-family: Bitter">Your name (optional)</label>
+              <input type="text" id="artistName" placeholder="Anonymous" />
+            </div>
+            <button class="submit" id="submitDrawing" style="font-family: Bitter">Add yourself to the brand</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-head">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 10px; font-family: &quot;Playfair Display&quot;">Community</div>
+            <h3 style="font-family: &quot;LingWai TC&quot;">The brand, drawn by everyone.</h3>
+          </div>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+          <div class="gallery-empty">The first drawing will land here.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAME -->
+    <div id="name" class="tab-content">
+      <div class="name-intent">
+        <div class="eyebrow" style="font-family: &quot;Playfair Display&quot;">02 — Name the garment</div>
+        <h3 class="name-headline" style="font-family: &quot;LingWai TC&quot;">Every product is named after a real person.<br /><span class="italic pink">Nominate someone.</span></h3>
+        <p class="name-sub" style="font-family: Bitter">A teacher. A community leader. A friend who changed things quietly. Their name lives on the tag, their story plays when someone scans it.</p>
+      </div>
+
+      <ol class="steps">
+        <li><span class="step-n" style="font-family: Bitter">01</span><span class="step-t" style="font-family: &quot;LingWai TC&quot;; font-weight: 600">You nominate</span><span class="step-d" style="font-family: Bitter">A person + a one-paragraph story.</span></li>
+        <li><span class="step-n" style="font-family: Bitter">02</span><span class="step-t" style="font-family: &quot;LingWai TC&quot;; font-weight: 600">We publish</span><span class="step-d" style="font-family: Bitter">Their story goes live, linked from a QR code.</span></li>
+        <li><span class="step-n" style="font-family: Bitter">03</span><span class="step-t" style="font-family: &quot;LingWai TC&quot;; font-weight: 600">Their name ships</span><span class="step-d" style="font-family: Bitter">Printed on the next garment’s tag.</span></li>
+      </ol>
+
+      <div class="two-col">
+        <div>
+          <div class="name-plate">
+            <div class="plate-lbl" style="font-family: Bitter">Style on the tag</div>
+            <div class="plate-val" id="previewName" style="font-family: &quot;LingWai TC&quot;">Ashlyn Newport Top</div>
+          </div>
+          <p class="plate-hint" style="font-family: &quot;Playfair Display&quot;">Live preview — starts typing on the right.</p>
+
+          <div class="names-list">
+            <div class="eyebrow" style="font-family: Bitter">Currently named after</div>
+            <div class="name-row"><span class="num">01</span><span class="name" style="font-family: &quot;LingWai TC&quot;">Jasmine</span><span class="role" style="font-family: Bitter">Aid Worker</span></div>
+            <div class="name-row"><span class="num">02</span><span class="name" style="font-family: &quot;LingWai TC&quot;">Ashlyn</span><span class="role" style="font-family: Bitter">Educator</span></div>
+            <div class="name-row"><span class="num">03</span><span class="name" style="font-family: &quot;LingWai TC&quot;">Maya</span><span class="role" style="font-family: Bitter">Artist</span></div>
+            <div class="name-row"><span class="num">04</span><span class="name" style="font-family: &quot;LingWai TC&quot;">Priya</span><span class="role" style="font-family: Bitter">Engineer</span></div>
+            <div id="submittedNames"></div>
+          </div>
+        </div>
+
+        <div class="copy">
+          <h3 style="font-family: &quot;LingWai TC&quot;">Your nomination</h3>
+          <div class="field">
+            <label style="font-family: Bitter">Their name</label>
+            <input type="text" id="nominateName" placeholder="Full name" />
+          </div>
+          <div class="field">
+            <label style="font-family: Bitter">What they do</label>
+            <input type="text" id="nominateRole" placeholder="Teacher, activist, artist…" />
+          </div>
+          <div class="field">
+            <label style="font-family: Bitter">Their story</label>
+            <textarea id="nominateStory" rows="4" placeholder="Tell us who they are and why their name should be on a garment…"></textarea>
+          </div>
+          <div class="field">
+            <label style="font-family: Bitter">Which garment</label>
+            <select id="nominateGarment" style="font-family: Bitter">
+              <option>Jasmine Top</option>
+              <option>Ashlyn Tee</option>
+              <option>New Style</option>
+            </select>
+          </div>
+          <button class="submit" id="submitNomination" style="font-family: Bitter">Submit nomination</button>
+          <div class="success" id="nominationSuccess">Thank you. Their story is with us now.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WALL -->
+    <div id="wall" class="tab-content">
+      <div class="two-col" style="grid-template-columns:1fr;gap:32px">
+        <p style="color: var(--grey); max-width: 50ch; font-family: Bitter; width: 344px">Every person who scans a QR code and watches a story leaves something behind. This is what they said.</p>
+
+        <div class="wall" id="wallContainer" style="background-color: rgb(255, 255, 255)"></div>
+
+        <div>
+          <div class="wall-input-row">
+            <input type="text" class="wall-input" id="wallInput" placeholder="Leave your message on the wall…" maxlength="60" />
+            <button class="wall-add" id="wallAdd" style="font-family: Bitter">Add →</button>
+          </div>
+          <p class="wall-hint" style="font-family: Bitter">Hover over messages to read them clearly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">brandy melville</div>
+  <p style="font-family: &quot;Playfair Display&quot;; width: 175px">Simple for every day. Made for everyone.</p>
+  <p class="tag-line" style="font-family: &quot;Playfair Display&quot;; width: 167px">One brand, every size</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="shareModal">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose">×</button>
+    <h3>You're in the brand.</h3>
+    <p>Your character has been added to the collection.</p>
+    <canvas id="modalCanvas" width="200" height="266"></canvas>
+    <div class="share-row">
+      <button class="btn" id="downloadBtn">Download</button>
+      <button class="btn pink" id="copyShareBtn">Copy to share</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Tabs ──────────────────────────────────────────
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Canvas drawing ────────────────────────────────
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false, tool = 'draw', lineWidth = 1.5, lastX = 0, lastY = 0;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const sx = canvas.width / r.width, sy = canvas.height / r.height;
+    if (e.touches) {
+      return { x: (e.touches[0].clientX - r.left) * sx, y: (e.touches[0].clientY - r.top) * sy };
+    }
+    return { x: (e.clientX - r.left) * sx, y: (e.clientY - r.top) * sy };
+  }
+  function startDraw(e) {
+    drawing = true;
+    const p = getPos(e); lastX = p.x; lastY = p.y;
+    ctx.beginPath();
+    ctx.arc(lastX, lastY, lineWidth / 2, 0, Math.PI * 2);
+    ctx.fillStyle = tool === 'erase' ? '#ffffff' : '#0a0a0a';
+    ctx.fill();
+  }
+  function moveDraw(e) {
+    if (!drawing) return;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = tool === 'erase' ? '#ffffff' : '#0a0a0a';
+    ctx.lineWidth = tool === 'erase' ? lineWidth * 6 : lineWidth;
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+  }
+  function endDraw() { drawing = false; }
+
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', moveDraw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e); });
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); moveDraw(e); });
+  canvas.addEventListener('touchend', endDraw);
+
+  document.getElementById('drawBtn').addEventListener('click', e => {
+    tool = 'draw';
+    e.target.classList.add('active');
+    document.getElementById('eraseBtn').classList.remove('active');
+  });
+  document.getElementById('eraseBtn').addEventListener('click', e => {
+    tool = 'erase';
+    e.target.classList.add('active');
+    document.getElementById('drawBtn').classList.remove('active');
+  });
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  document.querySelectorAll('.size-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.size-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      lineWidth = parseFloat(b.dataset.size);
+    });
+  });
+
+  // ── Gallery ───────────────────────────────────────
+  const gallery = [];
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!gallery.length) {
+      grid.innerHTML = '<div class="gallery-empty">The first drawing will land here.</div>';
+      return;
+    }
+    grid.innerHTML = gallery.map(item => `
+      <div class="gallery-item">
+        <img src="${item.dataURL}" alt="${item.name}" />
+        <div class="author">${item.name}</div>
+      </div>
+    `).join('');
+  }
+
+  function isCanvasBlank(c) {
+    const blank = document.createElement('canvas');
+    blank.width = c.width; blank.height = c.height;
+    return c.toDataURL() === blank.toDataURL();
+  }
+
+  function openModal() {
+    const modal = document.getElementById('shareModal');
+    const mc = document.getElementById('modalCanvas');
+    const mctx = mc.getContext('2d');
+    mctx.clearRect(0, 0, mc.width, mc.height);
+    const img = new Image();
+    img.onload = () => mctx.drawImage(img, 0, 0, 200, 266);
+    img.src = canvas.toDataURL();
+    modal.classList.add('open');
+  }
+  document.getElementById('modalClose').addEventListener('click', () => {
+    document.getElementById('shareModal').classList.remove('open');
+  });
+  document.getElementById('shareModal').addEventListener('click', e => {
+    if (e.target.id === 'shareModal') e.currentTarget.classList.remove('open');
+  });
+
+  function shareCharacter() {
+    if (isCanvasBlank(canvas)) return;
+    const name = document.getElementById('artistName').value.trim() || 'Anonymous';
+    gallery.push({ name, dataURL: canvas.toDataURL() });
+    renderGallery();
+    openModal();
+  }
+  document.getElementById('shareBtn').addEventListener('click', shareCharacter);
+  document.getElementById('submitDrawing').addEventListener('click', shareCharacter);
+
+  document.getElementById('downloadBtn').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.download = 'my-brandy-character.png';
+    a.href = canvas.toDataURL();
+    a.click();
+  });
+  document.getElementById('copyShareBtn').addEventListener('click', e => {
+    navigator.clipboard.writeText('I just added myself to the Brandy Melville rebrand. One Brand, Every Size. #BrandyMelville #OneBrandEverySize');
+    const t = e.target.textContent;
+    e.target.textContent = 'Copied!';
+    setTimeout(() => e.target.textContent = t, 1600);
+  });
+
+  // ── Naming ────────────────────────────────────────
+  document.getElementById('nominateName').addEventListener('input', e => {
+    const v = e.target.value.trim();
+    document.getElementById('previewName').textContent = v ? `${v} Top` : 'Ashlyn Newport Top';
+  });
+  document.getElementById('submitNomination').addEventListener('click', () => {
+    const name = document.getElementById('nominateName').value.trim();
+    const role = document.getElementById('nominateRole').value.trim();
+    if (!name) return;
+    const list = document.getElementById('submittedNames');
+    const n = String(list.children.length + 5).padStart(2, '0');
+    list.insertAdjacentHTML('beforeend', `
+      <div class="name-row">
+        <span class="num">${n}</span>
+        <span class="name">${name}</span>
+        <span class="role">${role || 'Nominated'}</span>
+      </div>`);
+    document.getElementById('nominateName').value = '';
+    document.getElementById('nominateRole').value = '';
+    document.getElementById('nominateStory').value = '';
+    document.getElementById('previewName').textContent = 'Jasmine';
+    const msg = document.getElementById('nominationSuccess');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 3000);
+  });
+
+  // ── Wall ──────────────────────────────────────────
+  const wallMessages = [
+    { text: 'I finally feel seen.',                              size: 24, x: 8,  y: 14, featured: true  },
+    { text: 'This is what fashion should always have been.',     size: 14, x: 38, y: 8 },
+    { text: 'My size. My name. My brand.',                       size: 19, x: 5,  y: 38 },
+    { text: 'Simplicity is not sameness.',                       size: 17, x: 52, y: 28, featured: true  },
+    { text: 'I wore the Jasmine top and cried a little.',        size: 13, x: 22, y: 58 },
+    { text: 'One brand. Finally.',                               size: 20, x: 62, y: 62 },
+    { text: "Ashlyn's story made me call my mom.",               size: 13, x: 8,  y: 74 },
+    { text: 'The tag meant something today.',                    size: 15, x: 44, y: 80 },
+    { text: 'You belong here.',                                  size: 26, x: 30, y: 48, featured: true  },
+  ];
+  function renderWall() {
+    const c = document.getElementById('wallContainer');
+    c.innerHTML = '';
+    wallMessages.forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'wall-msg' + (m.featured ? ' featured' : '');
+      el.textContent = m.text;
+      el.style.left = m.x + '%';
+      el.style.top = m.y + '%';
+      el.style.fontSize = m.size + 'px';
+      c.appendChild(el);
+    });
+  }
+  document.getElementById('wallAdd').addEventListener('click', () => {
+    const inp = document.getElementById('wallInput');
+    const text = inp.value.trim();
+    if (!text) return;
+    wallMessages.push({
+      text, size: 12 + Math.floor(Math.random() * 8),
+      x: 5 + Math.floor(Math.random() * 60),
+      y: 5 + Math.floor(Math.random() * 75),
+      featured: false,
+    });
+    renderWall();
+    inp.value = '';
+  });
+  document.getElementById('wallInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('wallAdd').click();
+  });
+
+  // ── Init ──────────────────────────────────────────
+  renderGallery();
+  renderWall();
+</script>
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-weight: 500 !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: "Playfair Display" !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: Helvetica !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: "Playfair Display" !important }
+.logo >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-size: 15px !important }
+.logo >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-size: 11px !important }
+.logo >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-weight: 600 !important }
+#galleryGrid >.gallery-empty { font-family: Bitter !important }
+#submittedNames .name { font-family: "LingWai TC" !important }
+#submittedNames .role { font-family: Bitter !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: Bitter !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: "Playfair Display" !important }
+.sub >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) { font-family: Bitter !important }
+</style>
